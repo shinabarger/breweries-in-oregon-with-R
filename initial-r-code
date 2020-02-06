@@ -1,0 +1,61 @@
+library(sf)
+library(ggplot2)
+library(tmaptools)
+library(leaflet)
+library(dplyr)
+library(tinycensus)
+
+library(tidyverse)
+library(viridis)
+library(mapview)
+
+# For plotting
+library(ggplot2)
+# For downloading Census data
+library(tidycensus)
+# For creating tmap
+library(tmap)
+# For reading and processing spatial data related to tmap      
+library(tmaptools)
+# For data wrangling
+library(dplyr)        
+# For reading, writing and working with spatial objects
+library(sf)      
+library(rgeos)
+library(rgdal)
+library(maptools)    
+# also loads sp()
+library(RColorBrewer) # creates nice color schemes
+library(classInt)     # finds class intervals for continuous variables
+library(tidyverse)        #
+library(cartography) 
+library(SpatialPosition) 
+
+census_api_key("ADD YOUR API KEY HERE")
+
+us_county_income <- get_acs(geography = "tract", state = "OR", variables = "B19013_001", 
+                           geometry = TRUE)
+
+somebreweries <- read.csv("/Users/davidshinabarger/Desktop/breweriesUSA.csv")
+somebreweries <- somebreweries %>% 
+  select(latitude, longitude, province, name) %>%
+  filter(province == "OR")
+
+head(somebreweries)
+names(somebreweries)
+str(somebreweries)
+
+ggplot(us_county_income) + 
+  geom_sf(aes(fill = estimate), color = NA) + 
+  coord_sf(datum = NA) + 
+  scale_colour_gradient("Household Income in $USD", low = "#DEDEDE", high = "#004573",
+                        space = "Lab", na.value = "grey50", guide = "colourbar",
+                        aesthetics = "fill") +
+geom_point(data = somebreweries, aes(x = longitude, y = latitude), size = 2, 
+           shape = 20, color = "#FFB03B") + 
+  coord_sf(xlim = c(-124.5, -115), ylim = c(42, 47), expand = FALSE) +
+  xlab(label = '') +
+  ylab(label = '')
+
+
+  
