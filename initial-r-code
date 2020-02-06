@@ -45,17 +45,21 @@ head(somebreweries)
 names(somebreweries)
 str(somebreweries)
 
-ggplot(us_county_income) + 
+map <- ggplot(us_county_income) + 
   geom_sf(aes(fill = estimate), color = NA) + 
-  coord_sf(datum = NA) + 
-  scale_colour_gradient("Household Income in $USD", low = "#DEDEDE", high = "#004573",
+  scale_colour_gradient(
+"Household Income in $USD
+ by Census Tract", low = "#CAD9DE", high = "#004573",
                         space = "Lab", na.value = "grey50", guide = "colourbar",
                         aesthetics = "fill") +
 geom_point(data = somebreweries, aes(x = longitude, y = latitude), size = 2, 
-           shape = 20, color = "#FFB03B") + 
+           shape = 20, color = "#FFB03B", alpha = 0.7,) + 
   coord_sf(xlim = c(-124.5, -115), ylim = c(42, 47), expand = FALSE) +
-  xlab(label = '') +
-  ylab(label = '')
+  xlab(label = 'Longitude') +
+  ylab(label = "Latitude") 
+
+map 
+
 
 
   
