@@ -49,17 +49,21 @@ map <- ggplot(us_county_income) +
   geom_sf(aes(fill = estimate), color = NA) + 
   scale_colour_gradient(
 "Household Income in $USD
- by Census Tract", low = "#CAD9DE", high = "#004573",
+by Census Tract", low = "#D5E5EB", high = "#044D64",
                         space = "Lab", na.value = "grey50", guide = "colourbar",
                         aesthetics = "fill") +
-geom_point(data = somebreweries, aes(x = longitude, y = latitude), size = 2, 
-           shape = 20, color = "#FFB03B", alpha = 0.7,) + 
+geom_point(data = somebreweries, aes(x = longitude, y = latitude), size = 1.5, 
+           shape = 20, color = "#FADC33", alpha = 0.6,) + 
   coord_sf(xlim = c(-124.5, -115), ylim = c(42, 47), expand = FALSE) +
   xlab(label = 'Longitude') +
-  ylab(label = "Latitude") 
-
+  ylab(label = "Latitude") +
+  theme_bw() +
+  theme(panel.border = element_blank()) +
+  theme(panel.background = element_blank()) +
+  theme(panel.grid = element_blank()) +
+  ggtitle("Breweries in Oregon on Household Income by Census Tract")
+    
 map 
-
 
 
   
